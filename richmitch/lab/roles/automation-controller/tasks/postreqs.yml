@@ -1,0 +1,9 @@
+- name: Execute postrequisite tasks 
+  debug:
+    msg: Performing necessary cleanup tasks for this role
+
+- name: Default Postrequisites
+  debug:
+    msg: Nothing to do
+
+

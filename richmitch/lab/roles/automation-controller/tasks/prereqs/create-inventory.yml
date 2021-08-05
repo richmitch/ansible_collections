@@ -1,0 +1,10 @@
+- name: Add tower inventory
+  awx.awx.inventory:
+    name: "{{ inv_name }}"
+    description: "{{ inv_description }}"
+    organization: "{{ organization }}"
+    validate_certs: no
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+    state: present
+#    tower_config_file: "~/tower_cli.cfg"

@@ -1,0 +1,7 @@
+- name: Execute Post Check tasks 
+  debug:
+    msg: Checking that the role resulted in the desired outcomes
+
+- name: Default Post Checks
+  debug:
+    msg: Nothing to do

@@ -1,0 +1,13 @@
+- name: Add tower user
+  awx.awx.user:
+    username: "{{ user_username }}"
+    password: "{{ user_password }}"
+    email: "{{ user_email }}"
+    first_name: "{{ user_first_name }}"
+    last_name: "{{ user_last_name }}"
+    is_superuser: "{{ user_is_superuser }}"
+    validate_certs: no
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+    state: present
+#    tower_config_file: "~/tower_cli.cfg"

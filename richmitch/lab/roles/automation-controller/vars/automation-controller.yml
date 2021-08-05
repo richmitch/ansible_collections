@@ -1,0 +1,100 @@
+# Prereqs
+prereqs:
+  create_users: true
+  create_inventory: true
+  create_credentials: true
+  create_project: true
+  create_job_template: true
+
+# Prechecks
+precheck:
+  run_job: true
+
+# Tower CLI login details
+controller_username: admin
+controller_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          64633933643137666164663162336336643835646333353538613366356461343162383238373436
+          6365303734353839366162646532333164373830373631300a366466616261363935623932313530
+          64386364663562363633623635346464326134646165373130633134386665623935353037356238
+          3562306136616562620a653436383233313166646230343931663538663763303035333531633932
+          6264
+controller_host: 192.168.20.10
+
+# Tower user credentials
+# User defaults
+user_username: richmitch
+user_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          63353162656365386530333866663463636261663932393433616234626531373165633636613230
+          6264356564386637336137616533303738636130303836350a356330393235663635373264326130
+          64316662306131616333643237663736663535653936633237623333323135306464303664323639
+          3431323534666236380a376634623563396239303864323761306364396163323066646164353432
+          3132
+user_email: rimitche@redhat.com
+user_first_name: Richard
+user_last_name: Mitchell
+user_is_superuser: yes
+
+# Tower defaults
+organization: Default
+
+# Inventory defaults
+inv_name: Lab
+inv_description: Default Lab inventory
+
+# Credentials defaults
+credentials:
+  redhat_registry:
+    name: Red Hat Container Registry
+    description:
+    type: Container Registry
+    inputs:
+      host: registry.redhat.io
+      username: "{{ redhat_username }}"
+      password: "{{ redhat_password }}"
+  scm:
+    name: GitHub SCM
+    description: 
+    type: Source Control
+    inputs:
+      username: richmitch
+      password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          61363533633433613766623037333331643161633530366231623064396265336539333363336636
+          6366613739376539613965366636343466646137353934350a373636663831336434656533323631
+          62353139303832313161303763373964323430643737316130396632653362383237393430316162
+          3435313966383662640a623861303239373465373333313365396366656135316634353237373865
+          35343165643130336162383334316365633532346566316430633339643335363961
+
+# Execution Environment defaults
+execution:
+  default:
+    name: Default execution environment
+    image: "registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0"
+    pull: missing
+    credential: "{{ credentials.redhat_registry.name }}"
+
+# Container images
+container_images:
+    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-supported-rhel8:2.0.0
+    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-29-rhel8:2.0.0
+    - registry.redhat.io/ansible-automation-platform-20-early-access/ee-minimal-rhel8:2.0.0
+
+# Project defaults
+prj_name: Lab Project
+prj_description: Default Lab project
+prj_execution_environment: Default execution environment
+prj_scm_type: git
+prj_scm_url: https://github.com/ansible/ansible-tower-samples
+prj_update_project: yes
+
+# JOb Template defaults
+jt_name: Lab Job Template
+jt_type: run
+jt_playbook: hello_world.yml
+jt_credential: Demo Credential
+jt_survey_enabled: no
+jt_survey_spec: 
+
+ansible_become_pass: "{{ user_password }}"

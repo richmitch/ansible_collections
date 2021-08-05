@@ -1,0 +1,26 @@
+## Execution environments
+- name: Update default EE to use my credential
+  awx.awx.execution_environment:
+    name: "{{ execution.default.name }}"
+    image: "{{ execution.default.image }}"
+    pull: "{{ execution.default.pull }}"
+    credential: "{{ execution.default.credential }}"
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+    controller_host: "{{ controller_host }}"
+    validate_certs: no
+
+- name: Login to Red Hat registry with AWX user context
+  become_user: awx
+  become: yes
+  containers.podman.podman_login:
+    username: '{{ redhat_username }}'
+    password: '{{ redhat_password }}'
+    registry: registry.redhat.io
+
+- name: Pull images if needed
+  become_user: awx
+  become: yes
+  containers.podman.podman_image:
+    name: "{{ item }}"
+  loop: "{{ container_images }}"

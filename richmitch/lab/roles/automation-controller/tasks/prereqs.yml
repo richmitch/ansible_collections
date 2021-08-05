@@ -1,0 +1,33 @@
+- name: Execute prerequisite tasks 
+  debug:
+    msg: Performing prerequisite tasks for this role
+
+- name: Check Red Hat login is working
+  import_tasks: prereqs/check-redhat-credentials.yml
+
+- name: Load vars for this test
+  include_vars:
+    file: 'automation-controller.yml'
+
+- name: Manage the default users
+  import_tasks: prereqs/create-users.yml
+  when: prereqs.create_users|bool
+
+- name: Manage the default inventory
+  import_tasks: prereqs/create-inventory.yml
+  when: prereqs.create_inventory|bool
+
+- name: Manage the default credentials
+  import_tasks: prereqs/create-credentials.yml
+  when: prereqs.create_credentials|bool
+
+- name: Update Execution Environments and download container images if not present
+  import_tasks: prereqs/update-execution.yml
+
+- name: Manage the default project
+  import_tasks: prereqs/create-project.yml
+  when: prereqs.create_project|bool
+
+- name: Manage the default job template
+  import_tasks: prereqs/create-job-template.yml
+  when: prereqs.create_job_template|bool

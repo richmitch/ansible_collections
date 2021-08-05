@@ -1,0 +1,17 @@
+- name: Execute Pre Check tasks 
+  debug:
+    msg: Checking that we're ok to run this role
+
+#- name: Check current directory
+#  debug:
+#    msg: Check we are running in the directory of the script
+#  failed_when: not ansible_env.PWD.endswith('redhat-technology-lab/ansible')
+
+- name: Launch a job to test everything is ok
+  awx.awx.job_launch:
+    job_template: "{{ jt_name }}"
+    validate_certs: no
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+  register: job
+  when: precheck.run_job|bool

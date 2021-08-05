@@ -1,0 +1,15 @@
+- name: Add Lab Project
+  awx.awx.project:
+    name: "{{ prj_name }}"
+    description: "{{ prj_description }}"
+    organization: "{{ organization }}"
+    default_environment: "{{ prj_execution_environment }}"
+    scm_type: "{{ prj_scm_type }}"
+    scm_url: "{{ prj_scm_url }}"
+    credential: "{{ credentials.scm.name }}"
+    update_project: "{{ prj_update_project }}"
+    validate_certs: no
+    controller_username: "{{ controller_username }}"
+    controller_password: "{{ controller_password }}"
+    state: present
+#    tower_config_file: "~/tower_cli.cfg"

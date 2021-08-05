@@ -1,0 +1,7 @@
+- name: Execute Run tasks 
+  debug:
+    msg: Performing main tasks for this role
+
+- name: Default Run tasks 
+  debug:
+    msg: Nothing to do

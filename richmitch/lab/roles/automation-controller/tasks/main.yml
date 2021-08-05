@@ -1,0 +1,21 @@
+---
+# tasks file for automation-controller
+
+- name: Prerequisites
+  import_tasks: prereqs.yml
+
+- name: Pre Checks
+  import_tasks: prechecks.yml
+
+- name: Run
+  import_tasks: run.yml
+
+- name: Post Checks
+  import_tasks: postchecks.yml
+
+- name: Postrequisites
+  import_tasks: postreqs.yml
+
+
+
+
